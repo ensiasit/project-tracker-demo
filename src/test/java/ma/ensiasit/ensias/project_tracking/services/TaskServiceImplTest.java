@@ -27,12 +27,11 @@ class TaskServiceImplTest {
   void givenExistingTaskShouldReturnCorrectTask() {
     // Given
     String id = "id-1";
-    Task task = new Task(id, null, null);
 
-    when(taskRepository.findById(id)).thenReturn(Optional.of(task));
+    when(taskRepository.findById(id)).thenReturn(Optional.of(new Task(id, null, null)));
 
     // When
-    Task returnedTask = taskService.getTask(id);
+    var returnedTask = taskService.getTask(id);
 
     // Then
     verify(taskRepository).findById(id);
