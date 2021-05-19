@@ -1,0 +1,9 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/project-tracker?authSource=admin
