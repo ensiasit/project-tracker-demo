@@ -12,4 +12,5 @@ public interface TaskService {
 
   Task getTask(String id);
 
+  Task deleteTask(String id);
 }
