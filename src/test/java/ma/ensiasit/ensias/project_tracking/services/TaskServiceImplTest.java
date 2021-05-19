@@ -1,5 +1,6 @@
 package ma.ensiasit.ensias.project_tracking.services;
 
+import ma.ensiasit.ensias.project_tracking.exceptions.DocumentNotFoundException;
 import ma.ensiasit.ensias.project_tracking.models.Task;
 import ma.ensiasit.ensias.project_tracking.repositories.TaskRepository;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,4 +40,20 @@ class TaskServiceImplTest {
     assertEquals(id, returnedTask.getId());
   }
 
+  @Test
+  void givenNotExistingTaskShouldReturnCorrectTask() {
+    // Given
+    String id = "id-1";
+
+    when(taskRepository.findById(id)).thenReturn(Optional.empty());
+
+    assertThrows(
+            //Then
+            DocumentNotFoundException.class,
+            //Whe
+            () -> taskService.getTask(id)
+    );
+
+    verify(taskRepository).findById(id);
+  }
 }

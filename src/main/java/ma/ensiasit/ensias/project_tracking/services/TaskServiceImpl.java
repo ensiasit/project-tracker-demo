@@ -30,4 +30,12 @@ public class TaskServiceImpl implements TaskService {
       .orElseThrow(() -> new DocumentNotFoundException(String.format("Document with id='%s' not found.", id)));
   }
 
+  @Override
+  public Task deleteTask(String id) {
+    var task = getTask(id);
+
+    taskRepository.deleteById(id);
+
+    return task;
+  }
 }
